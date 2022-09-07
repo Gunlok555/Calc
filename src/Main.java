@@ -1,25 +1,24 @@
+
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-    calc();
+        Scanner scn = new Scanner(System.in);
+        System.out.print("Введите выражение: ");
+        String exp = scn.nextLine();
+        System.out.print(Calc.calc(exp));
+
     }
+}
+    class Calc {
 
-
-    public class Calc {
-
-        public static String calc(String input) {
-            Scanner scn = new Scanner(System.in);
-            System.out.print("Введите выражение: ");
-            String exp = scn.nextLine();
-
-            Converter converter = new Converter();
+       public static String calc(String input)  {
+           Converter converter = new Converter();
             String[] actions = {"+", "-", "/", "*"};
             String[] regexActions = {"\\+", "-", "/", "\\*"};
 
-
             int actionIndex = -1;
             for (int i = 0; i < actions.length; i++) {
-                if (exp.contains(actions[i])) {
+                if (input.contains(actions[i])) {
                     actionIndex = i;
                     break;
                 }
@@ -27,9 +26,9 @@ public class Main {
 
             if (actionIndex == -1) {
                 System.out.println("Некорректное выражение");
-                return null;
+
             }
-            String[] data = exp.split(regexActions[actionIndex]);
+            String[] data = input.split(regexActions[actionIndex]);
             if (converter.isRoman(data[0]) == converter.isRoman(data[1])) {
                 int a, b;
 
@@ -46,11 +45,11 @@ public class Main {
                 }
                 if ((a < 0 || a > 10 || b < 0 || b > 10)) {
                     System.out.println("Некорректный ввод, от 0 до 10");
-                    return null;
+
                 }
                 if (data.length != 2) {
                     System.out.println("Некорректный ввод, введите не более одного выражения");
-                    return null;
+
                 }
                 int result;
                 switch (actions[actionIndex]) {
@@ -67,7 +66,7 @@ public class Main {
                         result = a / b;
                         break;
                 }
-                //15->XV
+
                 if (isRoman) {
 
                     System.out.println(converter.intToRoman(result));
@@ -78,11 +77,13 @@ public class Main {
             } else {
                 System.out.println("Числа должны быть в одном формате");
             }
-            return null;
+            return "Расчет закончен, калькулятор завершил работу";
         }
 
+
     }
-}
+
+
 
 
 
